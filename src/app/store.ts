@@ -1,9 +1,22 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+
+import cutBoardFormReducer from "../features/cutBoardForm/cutBoardFormSlice";
+import detailsDataTableReducer from "../features/detailsDataTable/detailsDataTableSlice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    cutBoardForm: cutBoardFormReducer,
+    detailsDataTable: detailsDataTableReducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    const middlewares = getDefaultMiddleware();
+  
+    if (process.env.NODE_ENV === 'development') {
+      middlewares.push(logger);
+    }
+  
+    return middlewares;
   },
 });
 
